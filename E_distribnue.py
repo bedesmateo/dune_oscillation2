@@ -327,12 +327,16 @@ DN_nu_e_sat = np.sqrt(N_FD_hist) #Statistic errors in srqt (N) (Poisson's law)
 DN_nu_e_sys = DN_nu_e_sat #One takes the systematic errors equals to the statisticq one
 DN_nu_e = DN_nu_e_sat + DN_nu_e_sys
 
+#Generate a random nu_e energy distribution spectrum at the FD  --->  One pseudo experience 
 Nexp1=[]
 for i in range(0,len(DN_nu_e)):
 	Nexp1.append(rand.uniform(N_FD_hist[i]-DN_nu_e[i]/2,N_FD_hist[i]+DN_nu_e[i]/2))
-plt.bar(E_lisseND , Nexp1 ,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label="")
+plt.bar(E_lisseND , Nexp1 ,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label='random N$_{\u03BD_e}^{FD-exp}$')
 plt.errorbar(E_lisseND, Nexp1, DN_nu_e, fmt='none',ecolor ='blue')
+plt.xlabel('E GeV')
+plt.ylabel('N$_{\u03BD_e}^{FD}$   ${\u03BD_e}$/1GeV (x1.1*10$^{21}$POT)')
 plt.legend()
+plt.title('Generating one pseudo experience')
 plt.show()
 plt.close()
 
@@ -348,22 +352,28 @@ deltaCP_3=-0.35
 plt.subplot(321) # deltaCP_1 ;theta23_1 
 
 N_1 = np.array(osc_mod.Rec2(Acc, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23_1 ,E_lisseND, 1285 ,deltaCP_1*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
-chi2_1 = osc_mod.chi2( N_1 , N_FD_hist , E_lisseND)
+#chi2_1 = osc_mod.chi2( N_1 , N_FD_hist , E_lisseND)
+chi2_1 = osc_mod.chi2( N_1 , Nexp1 , E_lisseND)
 chi2_str_1=str(round(chi2_1,2))
 plt.bar(E_lisseND , N_1 ,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_1}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND,Nexp1 , DN_nu_e, fmt='none',ecolor ='blue')
 plt.ylabel('$\delta_{CP}= -0.45 $')
 plt.legend()
 
 plt.subplot(322) # deltaCP_1 ;theta23_2 
 plt.title('N$_{\u03BD_e}^{FD}$   ${\u03BD_e}$/1GeV (x1.1*10$^{21}$POT)')
 N_2 = np.array(osc_mod.Rec2(Acc, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23_2,E_lisseND, 1285 ,deltaCP_1*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
-chi2_2 = osc_mod.chi2( N_2 , N_FD_hist , E_lisseND)
+#chi2_2 = osc_mod.chi2( N_2 , N_FD_hist , E_lisseND)
+chi2_2 = osc_mod.chi2( N_2 , Nexp1 , E_lisseND)
 chi2_str_2=str(round(chi2_2,2))
 plt.bar( E_lisseND , N_2,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_2}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND, Nexp1, DN_nu_e, fmt='none',ecolor ='blue')
 plt.legend()
 
 """
@@ -380,22 +390,28 @@ plt.legend()
 plt.subplot(323) # deltaCP_2 ;theta23_1 
 
 N_4 = np.array(osc_mod.Rec2(Acc, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23_1 ,E_lisseND, 1285 ,deltaCP_2*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
-chi2_4 = osc_mod.chi2( N_4 , N_FD_hist , E_lisseND)
+#chi2_4 = osc_mod.chi2( N_4 , N_FD_hist , E_lisseND)
+chi2_4 = osc_mod.chi2( N_4 , Nexp1 , E_lisseND)
 chi2_str_4=str(round(chi2_4,2))
 plt.bar( E_lisseND , N_4,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_4}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND, Nexp1, DN_nu_e, fmt='none',ecolor ='blue')
 plt.legend()
 plt.ylabel('$\delta_{CP}= 0 $  (true value)')
 
 plt.subplot(324) # deltaCP_2 ;theta23_2 
 
 N_5 = np.array(osc_mod.Rec2(Acc, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23_2 ,E_lisseND, 1285 ,deltaCP_2*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
-chi2_5 = osc_mod.chi2( N_5 , N_FD_hist , E_lisseND)
+#chi2_5 = osc_mod.chi2( N_5 , N_FD_hist , E_lisseND)
+chi2_5 = osc_mod.chi2( N_5 , Nexp1 , E_lisseND)
 chi2_str_5=str(round(chi2_5,2))
 plt.bar( E_lisseND , N_5,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_5}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND,Nexp1 , DN_nu_e, fmt='none',ecolor ='blue')
 plt.legend()
 """
 plt.subplot(326) # deltaCP_2 ;theta23_3
@@ -411,11 +427,14 @@ plt.legend()
 plt.subplot(325) # deltaCP_3 ;theta23_1 
 
 N_7 = np.array(osc_mod.Rec2(Acc, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23_1 ,E_lisseND, 1285 ,deltaCP_3*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
-chi2_7 = osc_mod.chi2( N_7 , N_FD_hist , E_lisseND)
+#chi2_7 = osc_mod.chi2( N_7 , N_FD_hist , E_lisseND)
+chi2_7 = osc_mod.chi2( N_7 , Nexp1 , E_lisseND)
 chi2_str_7=str(round(chi2_7,2))
 plt.bar( E_lisseND , N_7,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_7}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND, Nexp1, DN_nu_e, fmt='none',ecolor ='blue')
 plt.xlabel('$\Theta_{23} = 0.80 rad$')
 plt.ylabel('$\delta_{CP}= -0.35 (min value)$')
 plt.legend()
@@ -423,11 +442,14 @@ plt.legend()
 plt.subplot(326) # deltaCP_3 ;theta23_2 
 
 N_8 = np.array(osc_mod.Rec2(Acc, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23_2 ,E_lisseND, 1285 ,deltaCP_3*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
-chi2_8 = osc_mod.chi2( N_8 , N_FD_hist , E_lisseND)
+#chi2_8 = osc_mod.chi2( N_8 , N_FD_hist , E_lisseND)
+chi2_8 = osc_mod.chi2( N_8 , Nexp1 , E_lisseND)
 chi2_str_8=str(round(chi2_8,2))
 plt.bar( E_lisseND , N_8,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_8}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND, Nexp1 , DN_nu_e, fmt='none',ecolor ='blue')
 plt.xlabel('$\Theta_{23} = 0.87 (true/min value) rad$')
 plt.legend()
 """
@@ -448,8 +470,10 @@ plt.close()
 #Plot of the true values energy distributon spectrum
 
 plt.bar( E_lisseND , N_5,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_5}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND, Nexp1, DN_nu_e, fmt='none',ecolor ='blue')
 plt.title('N$_{\u03BD_e}^{FD}$   for $\Theta_{23}$ = 0.87 rad and $\delta_{CP}$= 0')
 plt.xlabel('E (GeV)')
 plt.ylabel('N$_{\u03BD_e}$    ${\u03BD_e}$/1GeV (x1.1*10$^{21}$POT) ')
@@ -479,7 +503,8 @@ for i in range (0,len(delta_CP)):
 	khi2 = khi2 + [0]
 	for j in range(0,len(E_lisseND)):
 		if L_N_nue[i][j] != 0:
-			khi2[i] = khi2[i] + ( L_N_nue[i][j] - N_FD_hist[j] )**2/(4*L_N_nue[i][j])
+		#	khi2[i] = khi2[i] + ( L_N_nue[i][j] - N_FD_hist[j] )**2/(4*L_N_nue[i][j])
+                        khi2[i] = khi2[i] + ( L_N_nue[i][j] - Nexp1[j] )**2/(4*L_N_nue[i][j])
 		else :
 			khi2[i] = khi2[i]
 
@@ -517,7 +542,8 @@ for i in range (0,len(L_theta23)):
 	khi2 = khi2 + [0]
 	for j in range(0,len(E_lisseND)):
 		if L_N_nue[i][j] != 0:
-			khi2[i] = khi2[i] + ( L_N_nue[i][j] - N_FD_hist[j] )**2/(4*L_N_nue[i][j])
+		#	khi2[i] = khi2[i] + ( L_N_nue[i][j] - N_FD_hist[j] )**2/(4*L_N_nue[i][j])
+			khi2[i] = khi2[i] + ( L_N_nue[i][j] - Nexp1[j] )**2/(4*L_N_nue[i][j])
 		else :
 			khi2[i] = khi2[i]
 
@@ -576,7 +602,8 @@ for i in range (0,len(L_theta23)):
 		L2_khi2[i] = L2_khi2[i] + [0]
 		for k in range (0,len(E_lisseND)):
 			if LL2_N_nue[i][j][k] != 0:
-				L2_khi2[i][j] = L2_khi2[i][j] + ( LL2_N_nue[i][j][k] - N_FD_hist[k] )**2/(4*LL2_N_nue[i][j][k])
+			#	L2_khi2[i][j] = L2_khi2[i][j] + ( LL2_N_nue[i][j][k] - N_FD_hist[k] )**2/(4*LL2_N_nue[i][j][k])
+	                        L2_khi2[i][j] = L2_khi2[i][j] + ( LL2_N_nue[i][j][k] - Nexp1[k] )**2/(4*LL2_N_nue[i][j][k])
 			else :
 				L2_khi2[i][j] = L2_khi2[i][j]
 
@@ -616,7 +643,7 @@ chi2min = round( L2_khi2[osc_mod.ind_min(L2_khi2)[0]][osc_mod.ind_min(L2_khi2)[1
 plt.plot( L_deltaCP_o_pi[osc_mod.ind_min(L2_khi2)[1]], L_sin23[osc_mod.ind_min(L2_khi2)[0]] ,'x',color='red',label=(f"$\chi^2/Ndof$={chi2min_dof_str}"))
 plt.legend(legend, legend_label, loc ='lower right')
 plt.show()
-print(L2_khi2)
+#print(L2_khi2)
 
 
 # IX) d) Chi2 function of the accuracy of the reconstruction of the energy
@@ -634,7 +661,8 @@ for i in range (0,len(L_accuracy)):
 	khi2 = khi2 + [0]
 	for j in range(0,len(E_lisseND)):
 		if L_N_nue[i][j] != 0:
-			khi2[i] = khi2[i] + ( L_N_nue[i][j] - N_FD_hist[j] )**2/(4*L_N_nue[i][j])
+		#	khi2[i] = khi2[i] + ( L_N_nue[i][j] - N_FD_hist[j] )**2/(4*L_N_nue[i][j])
+		        khi2[i] = khi2[i] + ( L_N_nue[i][j] - Nexp1[j] )**2/(4*L_N_nue[i][j])
 		else :
 			khi2[i] = khi2[i]
 			
@@ -663,11 +691,14 @@ plt.subplot(321)
 
 plt.title('min values')
 N_1 = np.array(osc_mod.Rec2(Acc_1, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23_min_acc1 ,E_lisseND, 1285 ,deltaCP_min_acc1*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
-chi2_1 = osc_mod.chi2( N_1 , N_FD_hist , E_lisseND)
+#chi2_1 = osc_mod.chi2( N_1 , N_FD_hist , E_lisseND)
+chi2_1 = osc_mod.chi2( N_1 , Nexp1 , E_lisseND)
 chi2_str_1=str(round(chi2_1,2))
 plt.bar(E_lisseND , N_1 ,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_1}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND, Nexp1, DN_nu_e, fmt='none',ecolor ='blue')
 plt.ylabel('Accuracy = 20%')
 #plt.xlabel('$\Theta23 = 0.86 $')
 plt.xlabel('$\delta_{CP}= -0.61 ; \Theta_{23} = 0.86  $')
@@ -676,23 +707,29 @@ plt.legend()
 plt.subplot(322)
 
 plt.title('true values : $\delta_{CP}= 0 ; \Theta_{23} = 0.86  $')
-N_1 = np.array(osc_mod.Rec2(Acc_1, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23 ,E_lisseND, 1285 ,0*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
-chi2_1 = osc_mod.chi2( N_1 , N_FD_hist , E_lisseND)
-chi2_str_1=str(round(chi2_1,2))
-plt.bar( E_lisseND , N_1,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_1}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+N_2 = np.array(osc_mod.Rec2(Acc_1, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23 ,E_lisseND, 1285 ,0*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
+#chi2_2 = osc_mod.chi2( N_2 , N_FD_hist , E_lisseND)
+chi2_2 = osc_mod.chi2( N_2 , Nexp1 , E_lisseND)
+chi2_str_2=str(round(chi2_2,2))
+plt.bar( E_lisseND , N_2,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_2}"))
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND, Nexp1, DN_nu_e, fmt='none',ecolor ='blue')
 plt.legend()
 
 plt.subplot(323)
 
 
 N_3 = np.array(osc_mod.Rec2(Acc_2, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23_min_acc2 ,E_lisseND, 1285 ,deltaCP_min_acc2*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
-chi2_3 = osc_mod.chi2( N_3 , N_FD_hist , E_lisseND)
+#chi2_3 = osc_mod.chi2( N_3 , N_FD_hist , E_lisseND)
+chi2_3 = osc_mod.chi2( N_3 , Nexp1 , E_lisseND)
 chi2_str_3=str(round(chi2_3,2))
 plt.bar(E_lisseND , N_3 ,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_3}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND, Nexp1, DN_nu_e, fmt='none',ecolor ='blue')
 #plt.ylabel('$\delta_{CP}= -0.61 $  (min value for acc=0.2)')
 #plt.xlabel('$\Theta23 = 0.86 $')
 plt.ylabel('Accuracy = 21%')
@@ -703,22 +740,28 @@ plt.subplot(324)
 
 
 N_4 = np.array(osc_mod.Rec2(Acc_2, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23 ,E_lisseND, 1285 ,0*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
-chi2_4 = osc_mod.chi2( N_4 , N_FD_hist , E_lisseND)
+#chi2_4 = osc_mod.chi2( N_4 , N_FD_hist , E_lisseND)
+chi2_4 = osc_mod.chi2( N_4 , Nexp1 , E_lisseND)
 chi2_str_4=str(round(chi2_4,2))
 plt.bar( E_lisseND , N_4,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_4}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND, Nexp1, DN_nu_e, fmt='none',ecolor ='blue')
 plt.legend()
 
 plt.subplot(325)
 
 
 N_5 = np.array(osc_mod.Rec2(Acc_3, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23_min_acc3 ,E_lisseND, 1285 ,deltaCP_min_acc3*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
-chi2_5 = osc_mod.chi2( N_5 , N_FD_hist , E_lisseND)
+#chi2_5 = osc_mod.chi2( N_5 , N_FD_hist , E_lisseND)
+chi2_5 = osc_mod.chi2( N_5 , Nexp1 , E_lisseND)
 chi2_str_5=str(round(chi2_5,2))
 plt.bar(E_lisseND , N_5 ,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_5}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND, Nexp1, DN_nu_e, fmt='none',ecolor ='blue')
 #plt.ylabel('$\delta_{CP}= -0.52 $  (min value for acc=0.2)')
 #plt.xlabel('$\Theta23 = 0.83 $')
 plt.ylabel('Accuracy = 22%')
@@ -729,11 +772,14 @@ plt.subplot(326)
 
 
 N_6 = np.array(osc_mod.Rec2(Acc_3, E_lisseND, Phi_lisseND * osc_mod.probability_oscillation( theta12 , theta13 , theta23 ,E_lisseND, 1285 ,0*180/np.pi, True, True) * F_lisse * sigma_FD * Npot *Nmultiply ,bias))/Nmultiply
-chi2_6 = osc_mod.chi2( N_6 , N_FD_hist , E_lisseND)
+#chi2_6 = osc_mod.chi2( N_6 , N_FD_hist , E_lisseND)
+chi2_6 = osc_mod.chi2( N_6 , Nexp1 , E_lisseND)
 chi2_str_6=str(round(chi2_6,2))
 plt.bar( E_lisseND , N_6,color='grey',edgecolor = 'black',width=(Emax-0.5)/Nbin,label=(f"$\chi^2$={chi2_str_6}"))
-plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
-plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+#plt.plot(E_lisseND, N_FD_hist ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+#plt.errorbar(E_lisseND, N_FD_hist, DN_nu_e, fmt='none',ecolor ='blue')
+plt.plot(E_lisseND, Nexp1 ,'x',color='red', label='N$_{\u03BD_e}^{FD-data}$')
+plt.errorbar(E_lisseND, Nexp1, DN_nu_e, fmt='none',ecolor ='blue')
 plt.legend()
 plt.show()
 """
@@ -753,7 +799,8 @@ for i in range (0,len(Lbias)):
 	khi2 = khi2 + [0]
 	for j in range(0,len(E_lisseND)):
 		if L_N_nue[i][j] != 0:
-			khi2[i] = khi2[i] + ( L_N_nue[i][j] - N_FD_hist[j] )**2/(4*L_N_nue[i][j])
+#			khi2[i] = khi2[i] + ( L_N_nue[i][j] - N_FD_hist[j] )**2/(4*L_N_nue[i][j])
+                        khi2[i] = khi2[i] + ( L_N_nue[i][j] - Nexp1[j] )**2/(4*L_N_nue[i][j])
 		else :
 			khi2[i] = khi2[i]
 			
@@ -787,7 +834,8 @@ for i in range (0,len(L_bias)):
 		L2_khi2[i] = L2_khi2[i] + [0]
 		for k in range (0,len(E_lisseND)):
 			if LL2_N_nue[i][j][k] != 0:
-				L2_khi2[i][j] = L2_khi2[i][j] + ( LL2_N_nue[i][j][k] - N_FD_hist[k] )**2/(4*LL2_N_nue[i][j][k])
+#				L2_khi2[i][j] = L2_khi2[i][j] + ( LL2_N_nue[i][j][k] - N_FD_hist[k] )**2/(4*LL2_N_nue[i][j][k])
+                                L2_khi2[i][j] = L2_khi2[i][j] + ( LL2_N_nue[i][j][k] - Nexp1[k] )**2/(4*LL2_N_nue[i][j][k])
 			else :
 				L2_khi2[i][j] = L2_khi2[i][j]
 
